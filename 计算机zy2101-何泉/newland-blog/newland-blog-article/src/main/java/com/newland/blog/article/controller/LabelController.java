@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * <p>
  * 标签表 前端控制器
- * </p>
  */
 @Api(value = "标签管理接口", description = "标签管理接口，提供标签的增、删、改、查")
 @RestController
