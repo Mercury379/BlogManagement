@@ -26,7 +26,30 @@ import java.util.List;
 @Service
 public class QuestionServiceImpl {
 
+    @Override
+    public Result findListByUserId(QuestionUserREQ req) {
+        if (StringUtils.isEmpty(req.getUserId())) {
+            return Result.error("无效用户信息");
+        }
 
+        QueryWrapper<Question> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", req.getUserId());
+
+        // 排序
+        wrapper.orderByDesc("update_date");
+
+        IPage<Question> page = baseMapper.selectPage(req.getPage(), wrapper);
+
+        return Result.ok(page);
+    }
+
+    @Override
+    public Result getQuestionTotal() {
+        QueryWrapper<Question> wrapper = new QueryWrapper<>();
+        // 查询所有问题总记录
+        List<Question> totalList = baseMapper.selectList(wrapper);
+        return Result.ok(totalList);
+    }
 
 
 
