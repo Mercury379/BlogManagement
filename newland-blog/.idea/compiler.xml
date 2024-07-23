@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="newland-blog-util" />
+        <module name="newland-blog-generator" />
+        <module name="newland-blog-api" />
+        <module name="newland-blog-article" />
+        <module name="newland-blog-question" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="mengxuegu-blog-api" target="1.9" />
+      <module name="mengxuegu-blog-article" target="1.9" />
+      <module name="mengxuegu-blog-generator" target="1.9" />
+      <module name="mengxuegu-blog-question" target="1.9" />
+      <module name="mxg-blog-article" target="1.9" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="mengxuegu-blog-api" options="-parameters" />
+      <module name="mengxuegu-blog-article" options="-parameters" />
+      <module name="mengxuegu-blog-generator" options="-parameters" />
+      <module name="mengxuegu-blog-question" options="-parameters" />
+      <module name="mxg-blog-article" options="-parameters" />
+      <module name="newland-blog-api" options="-parameters" />
+      <module name="newland-blog-article" options="-parameters" />
+      <module name="newland-blog-generator" options="-parameters" />
+      <module name="newland-blog-question" options="-parameters" />
+      <module name="newland-blog-util" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newland.blog.question.mapper.QuestionMapper">
+
+
+
+<!--    根据问题id查询问题详情与属性标签ids-->
+    <resultMap id="QuestionAndLabelIdsMap" type="Question">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId" />
+        <result column="nick_name" property="nickName" />
+        <result column="user_image" property="userImage" />
+        <result column="title" property="title" />
+        <result column="md_content" property="mdContent" />
+        <result column="html_content" property="htmlContent" />
+        <result column="view_count" property="viewCount" />
+        <result column="thumhup" property="thumhup" />
+        <result column="reply" property="reply" />
+        <result column="status" property="status" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <!--  映射标签id，一个问题对应多个标签id-->
+        <collection property="labelIds" javaType="list" ofType="string">
+            <id column="label_id" property="id" />
+        </collection>
+
+    </resultMap>
+
+
+
+
+</mapper>
