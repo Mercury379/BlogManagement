@@ -43,8 +43,9 @@ logging:
 
 ali:
   oss:
-    endpoint: oss-cn-fuzhou.aliyuncs.com
-    accessKeyId: LTAI5tGF98jZFCVNUGeKErxg
-    accessKeySecret: nC3rKSHAIsgeT7BeVSYJXscKpYXZiw
-    bucketName: chenle47835
+    endpoint: oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI5tPwAQK8zvw1HfqL8zGQ
+    accessKeySecret: DGbWiC5ZAkTLAzBOM8RJGK6krETy7F
+    bucketName: rzt-oss-test
     imagePathPrefix: driverstudy/
+    bucketDomain: https://rzt-oss-test.oss-cn-beijing.aliyuncs.com/

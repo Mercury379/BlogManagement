@@ -5,6 +5,6 @@ package com.newland.blog.util.enums;
  */
 public enum PlatformEnum {
 //    文章，  用户（头像）
-    ARTICEL, USER;
+    ARTICLE, USER;
 
 }

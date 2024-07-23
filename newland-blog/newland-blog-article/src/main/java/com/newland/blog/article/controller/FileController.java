@@ -29,7 +29,7 @@ public class FileController {
         // 获取阿里云 OSS 相关配置信息
         AliyunProperties aliyun = blogProperties.getAliyun();
 
-        return AliyunUtil.uploadFileToOss(PlatformEnum.ARTICEL, file, aliyun);
+        return AliyunUtil.uploadFileToOss(PlatformEnum.ARTICLE, file, aliyun);
     }
 
     @ApiImplicitParam(name = "fileUrl", value = "要删除的文件URL", required = true)
