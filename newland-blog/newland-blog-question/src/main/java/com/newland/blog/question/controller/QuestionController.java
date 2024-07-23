@@ -25,5 +25,20 @@ public class QuestionController {
      * 7: 根据问题ID 远程调用文章微服务查询文章详细信息
      */
 
+    @Autowired
+    private IQuestionService questionService;
+
+    //5: 根据用户id查询问题列表
+    @ApiOperation("根据用户ID查询问题列表接口")
+    @PostMapping("/user")
+    public Result findListByUserId(@RequestBody QuestionUserREQ req) {
+        return questionService.findListByUserId(req);
+    }
+    //6: 查询提问总记录
+    @ApiOperation("查询提问总记录")
+    @GetMapping("/total")
+    public Result getQuestionTotal() {
+        return questionService.getQuestionTotal();
+    }
 
 }
