@@ -1,0 +1,55 @@
+#swagger:
+#  title: 新大陆分布式与微服务的技术论讨——陈乐——20247.20
+#  description: 新大陆技术论讨-分类&标签&文章&广告管理接口
+#  exclude-path: /error # 剔除请求
+#
+#server:
+#  port: 8001
+#  servlet:
+#    context-path: /article # 上下文件路径，请求前缀 ip:port/article
+#
+#spring:
+#  application:
+#    name: article-server # 应用名
+#  # 数据源配置
+#  datasource:
+#    username: root
+#    password: root
+#    url: jdbc:mysql://127.0.0.1:3306/mxg_blog_article?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+#    #mysql8版本以上驱动包指定新的驱动类
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    #   数据源其他配置, 在 DruidConfig配置类中手动绑定
+#    initialSize: 8
+#    minIdle: 5
+#    maxActive: 20
+#    maxWait: 60000
+#    timeBetweenEvictionRunsMillis: 60000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848 # 关于nacos注册与发现的配置, 配置nacos服务器的ip:port
+#
+#
+#mybatis-plus:
+#  type-aliases-package: com.newland.blog.entities
+#  # xxxMapper.xml 路径
+#  mapper-locations: classpath*:com/newland/blog/article/mapper/**/*.xml
+#
+## 日志级别，会打印sql语句
+#logging:
+#  level:
+#    com.newland.blog.article.mapper: debug
+#
+#ali:
+#  oss:
+#    endpoint: oss-cn-fuzhou.aliyuncs.com
+#    accessKeyId: LTAI5tGF98jZFCVNUGeKErxg
+#    accessKeySecret: nC3rKSHAIsgeT7BeVSYJXscKpYXZiw
+#    bucketName: chenle47835
+#    imagePathPrefix: driverstudy/
+#
+#
+#
+#
