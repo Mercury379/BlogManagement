@@ -5,8 +5,6 @@
 
 
 <!--    根据问题id查询问题详情与属性标签ids-->
-
-
     <resultMap id="QuestionAndLabelIdsMap" type="Question">
         <id column="id" property="id"/>
         <result column="user_id" property="userId" />
