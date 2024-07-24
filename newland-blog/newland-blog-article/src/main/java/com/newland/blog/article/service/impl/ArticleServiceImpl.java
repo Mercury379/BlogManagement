@@ -209,4 +209,24 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         return Result.ok(data);
     }
+
+    @Override
+    public Result getUserMonthArticleTotal(String userId) {
+        List<Map<String, Object>> maps = baseMapper.getUserMonthArticleTotal(userId);
+        // 将年月提取到集合中
+        List<Object> yearMonthList = new ArrayList<>();
+        // 将每个月的文章数提取到集合中
+        List<Object> articleTotalList = new ArrayList<>();
+
+        for(Map<String, Object> map: maps) {
+            yearMonthList.add ( map.get("year_month") );
+            articleTotalList.add( map.get("total") );
+        }
+
+        // 封装响应的data数据
+        Map<String, Object> data = new HashMap<>();
+        data.put("yearMonthList", yearMonthList);
+        data.put("aritcleTotalList", articleTotalList);
+        return Result.ok(data);
+    }
 }

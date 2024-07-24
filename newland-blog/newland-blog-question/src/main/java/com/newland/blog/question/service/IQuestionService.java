@@ -69,4 +69,8 @@ public interface IQuestionService  extends IService<Question> {
      * @return 查询结果
      */
     Result getReplaysByQuestionIdTotal(String questionId);
+    /**
+     * 根据用户id统计该用户近6个月发表的问题数
+     */
+    Result getUserMonthQuestionTotal(String userId);
 }

@@ -59,4 +59,8 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     List<Map<String, Object>> selectMonthArticleTotal();
+    /**
+     *根据用户ID统计该用户近6个月发布的文章数
+     */
+    List<Map<String,Object>> getUserMonthArticleTotal(@Param("userId") String userId);
 }

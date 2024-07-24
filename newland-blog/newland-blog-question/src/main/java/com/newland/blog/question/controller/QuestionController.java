@@ -102,6 +102,13 @@ public class QuestionController {
         //根据文章id，远程调用文章微服务查询文章详细信息
         return articleClient.findArticleById(id);
     }
+    //8: 根据用户ID统计该用户近六个月发布的问题数
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID统计该用户近6个月发布的问题数")
+    @GetMapping("/usermonth/{id}")
+    public Result userMonthQuestionTotal(@PathVariable("id") String id){
+        return questionService.getUserMonthQuestionTotal(id);
+    }
 
     //2-1 : 为问题新增标签
     @ApiOperation("为问题新增标签")

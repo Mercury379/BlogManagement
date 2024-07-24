@@ -6,6 +6,7 @@ import com.newland.blog.entities.Replay;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,4 +44,5 @@ public interface QuestionMapper extends BaseMapper<Question> {
      * @return 回复个数
      */
     int getNumOfReplaysByQuestionId(String questionId);
+    List<Map<String,Object>> getUserMonthQuestionTotal(@Param("userId") String userId);
 }

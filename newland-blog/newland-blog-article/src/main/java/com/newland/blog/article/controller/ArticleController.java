@@ -111,4 +111,10 @@ public class ArticleController {
     public Result monthArticleTotal() {
         return articleService.selectMonthArticleTotal();
     }
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID统计该用户近6个月发布的文章数")
+    @GetMapping("/usermonth/{id}")
+    public Result userMonthArticleTotal(@PathVariable("id") String id){
+        return articleService.getUserMonthArticleTotal(id);
+    }
 }
