@@ -8,11 +8,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="newland-blog-util" />
-        <module name="newland-blog-api" />
         <module name="newland-blog-article" />
         <module name="new-blog-newsystem" />
-        <module name="newland-blog-generator" />
         <module name="newland-blog-question" />
+        <module name="newland-blog-api" />
+        <module name="newland-blog-newsystem" />
+        <module name="newland-blog-generator" />
       </profile>
     </annotationProcessing>
   </component>
@@ -23,6 +24,7 @@
       <module name="newland-blog-api" options="-parameters" />
       <module name="newland-blog-article" options="-parameters" />
       <module name="newland-blog-generator" options="-parameters" />
+      <module name="newland-blog-newsystem" options="-parameters" />
       <module name="newland-blog-question" options="-parameters" />
       <module name="newland-blog-util" options="-parameters" />
     </option>
