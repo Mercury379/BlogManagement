@@ -6,6 +6,8 @@ import com.newland.blog.question.req.QuestionUserREQ;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.QuestionStatusEnum;
 
+import java.util.List;
+
 /**
  * <p>
  * 问题信息表 服务类
@@ -48,5 +50,23 @@ public interface IQuestionService  extends IService<Question> {
      * @return 查询结果
      */
     Result getQuestionTotal();
-
+    /**
+     * 为问题新增标签
+     * @param questionId 问题ID
+     * @param labelIds 标签集合
+     * @return
+     */
+    Result addQuestionLabel(String questionId, List<String> labelIds);
+    /**
+     * 查询对应问题下所有回复
+     * @param questionId 问题ID
+     * @return 查询结果
+     */
+    Result findAllReplayByQuestionId (String questionId);
+    /**
+     * 查询对应问题下所有回复的个数
+     * @param questionId 问题ID
+     * @return 查询结果
+     */
+    Result getReplaysByQuestionIdTotal(String questionId);
 }
