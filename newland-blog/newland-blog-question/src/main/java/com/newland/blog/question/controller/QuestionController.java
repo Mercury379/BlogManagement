@@ -2,11 +2,13 @@ package com.newland.blog.question.controller;
 
 
 import com.newland.blog.question.req.QuestionUserREQ;
+import com.newland.blog.question.service.ArticleClient;
 import com.newland.blog.question.service.IQuestionService;
 import com.newland.blog.util.base.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -32,6 +34,9 @@ public class QuestionController {
     @Autowired
     private IQuestionService questionService;
 
+    @Autowired
+    ArticleClient articleClient; // feign远程调用(xhq)
+
     //5: 根据用户id查询问题列表
     @ApiOperation("根据用户ID查询问题列表接口")
     @PostMapping("/user")
@@ -44,5 +49,20 @@ public class QuestionController {
     public Result getQuestionTotal() {
         return questionService.getQuestionTotal();
     }
+
+    //7 : 根据问题ID 远程调用文章微服务查询文章详细信息
+    @ApiOperation("根据问题ID查询文章详细信息")
+    @GetMapping("/feign/{id}")
+    public Result findArticleById(@PathVariable("id") String id) {
+        //todo:根据问题id，查出文章id
+
+
+        //根据文章id，远程调用文章微服务查询文章详细信息
+        return articleClient.findArticleById(id);
+    }
+
+
+
+
 
 }
