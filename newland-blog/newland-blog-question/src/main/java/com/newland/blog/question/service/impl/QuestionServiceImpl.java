@@ -3,7 +3,9 @@ package com.newland.blog.question.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.newland.blog.entities.Article;
 import com.newland.blog.entities.Question;
+import com.newland.blog.entities.Replay;
 import com.newland.blog.question.mapper.QuestionMapper;
 import com.newland.blog.question.req.QuestionUserREQ;
 import com.newland.blog.question.service.IQuestionService;
@@ -103,6 +105,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> im
     }
 
     @Override
+
     public Result getQuestionTotal() {
         QueryWrapper<Question> wrapper = new QueryWrapper<>();
         // 查询所有问题总记录
@@ -110,7 +113,41 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> im
         return Result.ok(totalList);
     }
 
+    @Override
+    @Transactional
+    public Result addQuestionLabel(String questionId, List<String> labelIds) {
+        if (StringUtils.isEmpty(questionId) || CollectionUtils.isEmpty(labelIds)) {
+            return Result.error("问题ID或标签ID不能为空");
+        }
 
+        // 删除现有的问题与标签的关联关系
+        baseMapper.deleteQuestionLabel(questionId);
+
+        // 保存新的问题与标签的关联关系
+        baseMapper.saveQuestionLabel(questionId, labelIds);
+
+        return Result.ok("问题标签添加成功");
+    }
+
+    @Override
+    public Result findAllReplayByQuestionId(String questionId) {
+        Question question = baseMapper.selectById(questionId);
+        if(question == null) {
+            return Result.error("无效操作");
+        }
+        List<Replay> replays = baseMapper.findReplaysByQuestionId(questionId);
+        return Result.ok(replays);
+    }
+
+    @Override
+    public Result getReplaysByQuestionIdTotal(String questionId) {
+        Question question = baseMapper.selectById(questionId);
+        if(question == null) {
+            return Result.error("无效操作");
+        }
+        int num = baseMapper.getNumOfReplaysByQuestionId(questionId);
+        return Result.ok(num);
+    }
 
 
 }

@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 问题信息表 前端控制器
@@ -82,6 +84,7 @@ public class QuestionController {
     public Result findListByUserId(@RequestBody QuestionUserREQ req) {
         return questionService.findListByUserId(req);
     }
+
     //6: 查询提问总记录
     @ApiOperation("查询提问总记录")
     @GetMapping("/total")
@@ -100,8 +103,25 @@ public class QuestionController {
         return articleClient.findArticleById(id);
     }
 
+    //2-1 : 为问题新增标签
+    @ApiOperation("为问题新增标签")
+    @PostMapping("/addLabel")
+    public Result addQuestionLabel(@RequestParam("questionId") String questionId,
+                                   @RequestParam("labelIds") List<String> labelIds) {
+        return questionService.addQuestionLabel(questionId, labelIds);
+    }
 
+    //2-2 :查询问题下所有的回复（包括回复的回复）
+    @ApiOperation("根据问题ID查询问题所有回复列表接口")
+    @GetMapping("/replay/{id}")
+    public Result findAllReplayByQuestionId(@PathVariable("id") String id) {
+        return questionService.findAllReplayByQuestionId(id);
+    }
 
-
-
+    //2-3
+    @ApiOperation("根据问题id获得回复个数")
+    @GetMapping("/replay/total/{id}")
+    public Result getReplaysByQuestionIdTotal(@PathVariable("id") String id) {
+        return questionService.getReplaysByQuestionIdTotal(id);
+    }
 }

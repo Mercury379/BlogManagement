@@ -2,6 +2,7 @@ package com.newland.blog.question.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.newland.blog.entities.Question;
+import com.newland.blog.entities.Replay;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -29,5 +30,17 @@ public interface QuestionMapper extends BaseMapper<Question> {
     boolean saveQuestionLabel(@Param("questionId") String questionId,
                               @Param("labelIds") List<String> labelIds);
 
+    /**
+     * 查询问题下所有回复
+     * @param questionId 问题id
+     * @return 回复集合
+     */
+    List<Replay> findReplaysByQuestionId(@Param("questionId") String questionId);
 
+    /**
+     * 查询问题下所有回复个数
+     * @param questionId 问题id
+     * @return 回复个数
+     */
+    int getNumOfReplaysByQuestionId(String questionId);
 }
