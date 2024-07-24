@@ -15,4 +15,10 @@ public interface ReplayMapper extends BaseMapper<Replay> {
 
     // 根据ID查询回复
     Replay selectById(String replyId);
+    /**
+     * 查询问题下所有回复个数
+     * @param questionId 问题id
+     * @return 回复个数
+     */
+    int getNumOfReplaysByQuestionId(String questionId);
 }

@@ -2,6 +2,8 @@ package com.newland.blog.question.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.blog.entities.Question;
+import com.newland.blog.question.req.QuestionREQ;
+import com.newland.blog.question.req.QuestionReplayREQ;
 import com.newland.blog.question.req.QuestionUserREQ;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.QuestionStatusEnum;
@@ -49,7 +51,7 @@ public interface IQuestionService  extends IService<Question> {
      * 查询提问总记录
      * @return 查询结果
      */
-    Result getQuestionTotal();
+    Result queryPage(QuestionREQ req);
     /**
      * 为问题新增标签
      * @param questionId 问题ID
@@ -57,18 +59,6 @@ public interface IQuestionService  extends IService<Question> {
      * @return
      */
     Result addQuestionLabel(String questionId, List<String> labelIds);
-    /**
-     * 查询对应问题下所有回复
-     * @param questionId 问题ID
-     * @return 查询结果
-     */
-    Result findAllReplayByQuestionId (String questionId);
-    /**
-     * 查询对应问题下所有回复的个数
-     * @param questionId 问题ID
-     * @return 查询结果
-     */
-    Result getReplaysByQuestionIdTotal(String questionId);
     /**
      * 根据用户id统计该用户近6个月发表的问题数
      */

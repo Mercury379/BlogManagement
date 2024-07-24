@@ -7,6 +7,8 @@ import com.newland.blog.entities.Article;
 import com.newland.blog.entities.Question;
 import com.newland.blog.entities.Replay;
 import com.newland.blog.question.mapper.QuestionMapper;
+import com.newland.blog.question.req.QuestionREQ;
+import com.newland.blog.question.req.QuestionReplayREQ;
 import com.newland.blog.question.req.QuestionUserREQ;
 import com.newland.blog.question.service.IQuestionService;
 import com.newland.blog.util.base.Result;
@@ -70,10 +72,10 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> im
             return Result.error("无效操作");
         }
 
-        // 查询这篇文章现有数据，查询到后，将点赞数进行更新
+        // 查询这篇问题现有数据，查询到后，将点赞数进行更新
         Question question = baseMapper.selectById(id);
         if(question == null) {
-            return Result.error("文章不存在");
+            return Result.error("问题不存在");
         }
 
         if(question.getThumhup() <= 0 && count == -1) {
@@ -102,14 +104,12 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> im
 
         return Result.ok(page);
     }
-
     @Override
-
-    public Result getQuestionTotal() {
-        QueryWrapper<Question> wrapper = new QueryWrapper<>();
-        // 查询所有问题总记录
-        List<Question> totalList = baseMapper.selectList(wrapper);
-        return Result.ok(totalList);
+    public Result queryPage(QuestionREQ req) {
+        QueryWrapper<Question> wrapper = new QueryWrapper();
+        wrapper.orderByDesc("update_date");
+        IPage<Question> page = baseMapper.selectPage(req.getPage(), wrapper);
+        return Result.ok(page);
     }
 
     @Override
@@ -126,26 +126,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> im
         baseMapper.saveQuestionLabel(questionId, labelIds);
 
         return Result.ok("问题标签添加成功");
-    }
-
-    @Override
-    public Result findAllReplayByQuestionId(String questionId) {
-        Question question = baseMapper.selectById(questionId);
-        if(question == null) {
-            return Result.error("无效操作");
-        }
-        List<Replay> replays = baseMapper.findReplaysByQuestionId(questionId);
-        return Result.ok(replays);
-    }
-
-    @Override
-    public Result getReplaysByQuestionIdTotal(String questionId) {
-        Question question = baseMapper.selectById(questionId);
-        if(question == null) {
-            return Result.error("无效操作");
-        }
-        int num = baseMapper.getNumOfReplaysByQuestionId(questionId);
-        return Result.ok(num);
     }
 
     @Override

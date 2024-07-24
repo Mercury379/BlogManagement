@@ -55,8 +55,4 @@
         WHERE question_id = #{questionId}
     </select>
 
-    <select id="getNumOfReplaysByQuestionId" resultType="int">
-        SELECT COUNT(*) FROM mxg_replay
-        WHERE question_id = #{questionId}
-    </select>
 </mapper>

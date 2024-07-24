@@ -38,11 +38,5 @@ public interface QuestionMapper extends BaseMapper<Question> {
      */
     List<Replay> findReplaysByQuestionId(@Param("questionId") String questionId);
 
-    /**
-     * 查询问题下所有回复个数
-     * @param questionId 问题id
-     * @return 回复个数
-     */
-    int getNumOfReplaysByQuestionId(String questionId);
     List<Map<String,Object>> getUserMonthQuestionTotal(@Param("userId") String userId);
 }

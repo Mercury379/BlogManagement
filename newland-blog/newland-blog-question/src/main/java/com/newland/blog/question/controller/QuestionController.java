@@ -2,6 +2,8 @@ package com.newland.blog.question.controller;
 
 
 import com.newland.blog.entities.Question;
+import com.newland.blog.question.req.QuestionREQ;
+import com.newland.blog.question.req.QuestionReplayREQ;
 import com.newland.blog.question.req.QuestionUserREQ;
 import com.newland.blog.question.service.ArticleClient;
 import com.newland.blog.question.service.IQuestionService;
@@ -47,21 +49,21 @@ public class QuestionController {
     @Autowired
     ArticleClient articleClient; // feign远程调用(xhq)
 
-    //1：修改问题信息接口
+    //1：修改问题信息接口√
     @ApiOperation("修改问题信息接口")
     @PutMapping // put 请求 localhost:8001/article/article
     public Result update(@RequestBody Question question) {
         return questionService.updateOrSave(question);
     }
 
-    // 2：新增问题信息接口
+    // 2：新增问题信息接口√
     @ApiOperation("新增问题信息接口")
     @PostMapping
     public Result save(@RequestBody Question question) {
         return questionService.updateOrSave(question);
     }
 
-    //3: 删除问题信息接口
+    //3: 删除问题信息接口√
     @ApiImplicitParam(name = "id", value = "问题ID", required = true)
     @ApiOperation("删除问题接口")
     @DeleteMapping("/{id}")
@@ -70,7 +72,7 @@ public class QuestionController {
         return questionService.updateStatus(id, QuestionStatusEnum.DELETE);
     }
 
-    //4: 更新点赞数
+    //4: 更新点赞数√
     @ApiOperation("更新点赞数")
     @PutMapping("/thumb/{id}/{count}")
     public Result updataThumhup(@PathVariable("id") String id,
@@ -87,9 +89,9 @@ public class QuestionController {
 
     //6: 查询提问总记录
     @ApiOperation("查询提问总记录")
-    @GetMapping("/total")
-    public Result getQuestionTotal() {
-        return questionService.getQuestionTotal();
+    @PostMapping("/total")
+    public Result getQuestionTotal(@RequestBody QuestionREQ req) {
+        return questionService.queryPage(req);
     }
 
     //7 : 根据问题ID 远程调用文章微服务查询文章详细信息
@@ -110,25 +112,11 @@ public class QuestionController {
         return questionService.getUserMonthQuestionTotal(id);
     }
 
-    //2-1 : 为问题新增标签
-    @ApiOperation("为问题新增标签")
+    //2-1 : 修改问题的对应标签
+    @ApiOperation("修改问题的对应标签")
     @PostMapping("/addLabel")
     public Result addQuestionLabel(@RequestParam("questionId") String questionId,
                                    @RequestParam("labelIds") List<String> labelIds) {
         return questionService.addQuestionLabel(questionId, labelIds);
-    }
-
-    //2-2 :查询问题下所有的回复（包括回复的回复）
-    @ApiOperation("根据问题ID查询问题所有回复列表接口")
-    @GetMapping("/replay/{id}")
-    public Result findAllReplayByQuestionId(@PathVariable("id") String id) {
-        return questionService.findAllReplayByQuestionId(id);
-    }
-
-    //2-3
-    @ApiOperation("根据问题id获得回复个数")
-    @GetMapping("/replay/total/{id}")
-    public Result getReplaysByQuestionIdTotal(@PathVariable("id") String id) {
-        return questionService.getReplaysByQuestionIdTotal(id);
     }
 }
