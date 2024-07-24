@@ -33,6 +33,11 @@ public class QuestionController {
      * 6: 查询提问总记录
      * 7: 根据问题ID 远程调用文章微服务查询文章详细信息
      */
+    /**
+     * 1. 为问题新增标签
+     * 2. 查询问题下所有的回复（包括回复的回复）
+     * 3. 根据问题ID统计问题下所有的回复数，并修改数据库中的count_view
+     */
 
     @Autowired
     private IQuestionService questionService;

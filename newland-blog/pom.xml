@@ -13,6 +13,7 @@
         <module>newland-blog-article</module>
         <module>newland-blog-generator</module>
         <module>newland-blog-question</module>
+        <module>new-blog-newsystem</module>
     </modules>
     <packaging>pom</packaging>
 

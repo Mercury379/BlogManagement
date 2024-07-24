@@ -26,6 +26,19 @@
 
     </resultMap>
 
+    <!--  通过问题id删除问题标签表数据-->
+    <delete id="deleteQuestionLabel">
+        DELETE FROM mxg_question_label WHERE question_id = #{questionId}
+    </delete>
+
+    <!--    新增问题标签中间表数据-->
+    <insert id="saveQuestionLabel">
+        INSERT INTO mxg_question_label(id, question_id, label_id)
+        VALUES
+        <foreach collection="labelIds" item="item" separator=",">
+            ( '${@com.baomidou.mybatisplus.core.toolkit.IdWorker@getId()}', #{questionId}, #{item})
+        </foreach>
+    </insert>
 
 
 

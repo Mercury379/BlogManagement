@@ -1,0 +1,46 @@
+#spring.application.name=new-blog-newsystem
+server:
+  port: 8003
+  servlet:
+    context-path: /system
+spring:
+  application:
+    name: new-blog-newsystem
+    # \u6570\u636E\u6E90\u914D\u7F6E(git pull\u65F6\u8BB0\u5F97\u66F4\u6539)
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/mxg_blog_question?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    #mysql8\u7248\u672C\u4EE5\u4E0A\u9A71\u52A8\u5305\u6307\u5B9A\u65B0\u7684\u9A71\u52A8\u7C7B
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #   \u6570\u636E\u6E90\u5176\u4ED6\u914D\u7F6E, \u5728 DruidConfig\u914D\u7F6E\u7C7B\u4E2D\u624B\u52A8\u7ED1\u5B9A
+    initialSize: 8
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848 # nacos\u7684\u670D\u52A1\u5668ip:port
+
+mybatis-plus:
+  type-aliases-package: com.newland.blog.entities
+  # xxxMapper.xml \u8DEF\u5F84
+  mapper-locations: classpath*:com/newland/blog/question/mapper/**/*.xml
+
+# \u65E5\u5FD7\u7EA7\u522B\uFF0C\u4F1A\u6253\u5370sql\u8BED\u53E5
+logging:
+  level:
+    com.newland.blog.question.mapper: debug
+
+ali:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI5tPwAQK8zvw1HfqL8zGQ
+    accessKeySecret: DGbWiC5ZAkTLAzBOM8RJGK6krETy7F
+    bucketName: rzt-oss-test
+    imagePathPrefix: driverstudy/
+    bucketDomain: https://rzt-oss-test.oss-cn-beijing.aliyuncs.com/
