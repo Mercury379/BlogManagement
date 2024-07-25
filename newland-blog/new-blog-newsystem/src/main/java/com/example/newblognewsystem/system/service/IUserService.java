@@ -39,6 +39,13 @@ public interface IUserService extends IService<User> {
      */
     Result updateStatus(String id);
 
+    /**
+     * 8.分页查询用户列表
+     * @return
+     */
+    Result queryPage();
+
+
 
 
 }

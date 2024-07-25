@@ -1,6 +1,9 @@
 package com.example.newblognewsystem.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.api.R;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.newblognewsystem.system.mapper.UserMapper;
@@ -11,6 +14,7 @@ import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.ArticleStatusEnum;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -41,8 +45,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
 
     @Override
     public Result findRolebyID(String id) {
-        baseMapper.findRolebyID(id);
-        return Result.ok();
+        Role role=baseMapper.findRolebyID(id);
+        return Result.ok(role);
     }
 
     //6. 删除用户(假删除）
@@ -55,6 +59,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
         user.setUpdateDate(new Date());
         baseMapper.updateById(user);
         return Result.ok();
+    }
+
+    //8.分页查询用户列表
+    @Override
+    public Result queryPage() {
+        QueryWrapper<User> wrapper = new QueryWrapper();
+        wrapper.orderByDesc("update_date");
+        Page<User> userPage=new Page<>();
+        IPage<User> page = baseMapper.selectPage(userPage, wrapper);
+        return Result.ok(page);
     }
 
 
