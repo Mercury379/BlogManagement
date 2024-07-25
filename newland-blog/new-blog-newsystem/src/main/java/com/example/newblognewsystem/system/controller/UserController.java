@@ -50,8 +50,9 @@ public class UserController {
             required = true
     )
 
-    //4. 根据用户ID查询其对应的所有菜单列表详细信息
+    //3. 为用户赋予角色
 
+    //4. 根据用户ID查询其对应的所有菜单列表详细信息
 
     //5. 根据用户ID返回其角色的详细信息
     @ApiOperation("根据用户ID返回其角色的详细信息")
@@ -77,5 +78,13 @@ public class UserController {
         return Result.ok( userService.getById(id) );
     }
 
+    //8. 返回所有用户的列表
+    @ApiOperation("返回所有用户的列表")
+    @PostMapping("/search")
+    public Result search() {
+        return userService.queryPage();
+    }
+
+    //9. 修改用户信息
 
 }
