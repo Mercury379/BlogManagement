@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.newblognewsystem.system.mapper.UserMapper;
 import com.example.newblognewsystem.system.service.IUserService;
+import com.example.newblognewsystem.system.util.PasswordUtil;
 import com.newland.blog.entities.Article;
 import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
@@ -25,6 +26,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
     @Override
     public Result login(String userName, String password) {
         return null;
+    }
+
+    // 2.新增用户(密码需用加密算法,头像需上传至OSS)
+    @Override
+    public Result saveUser(User user) {
+        // 对密码进行加密，使用BCryptPasswordEncoder单向加密算法
+        String encryptedPassword = PasswordUtil.encryptPassword(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+        baseMapper.insert(user);
+        return Result.ok();
     }
 
     @Override

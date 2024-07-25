@@ -21,12 +21,16 @@ public interface IUserService extends IService<User> {
      */
     Result login(String userName, String password);
 
-    Result findRolebyID(String id);
-
     /**
      * 2.新增用户(密码需用加密算法,头像需上传至OSS)
-     *
+     * @param user 用户
+     * @return Result
      */
+    Result saveUser(User user);
+
+    Result findRolebyID(String id);
+
+
 
     /**
      * 6.修改状态：
