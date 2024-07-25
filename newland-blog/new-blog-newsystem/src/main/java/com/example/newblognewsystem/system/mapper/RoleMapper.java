@@ -27,7 +27,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @param roleId 角色ID
      * @param menuIds 菜单ID列表
      */
-    void insertRoleMenus(@Param("id")String id, @Param("roleId") String roleId, @Param("menuIds") List<String> menuIds);
+    void insertRoleMenus( @Param("roleId") String roleId, @Param("menuIds") List<String> menuIds);
 
     /**
      * 删除角色与菜单的关联记录
