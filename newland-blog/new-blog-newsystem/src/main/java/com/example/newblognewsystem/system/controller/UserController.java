@@ -52,8 +52,8 @@ public class UserController {
 
     @ApiOperation("登录验证用户密码(需解密)")
     @PostMapping
-    public Result login() {
-        return null;
+    public Result login(@RequestParam String userName, @RequestParam String password) {
+        return userService.login(userName, password);
     }
 
     @ApiOperation("新增用户(密码需用加密算法,头像需上传至OSS)")

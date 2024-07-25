@@ -29,7 +29,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
 
     @Override
     public Result login(String userName, String password) {
-        return null;
+        // 1.登录验证用户密码
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", userName);
+        User user = baseMapper.selectOne(wrapper);
+        if (user == null) {
+            return Result.error("用户不存在");
+        } else if (user.getIsAccountNonExpired() == 0) {
+            return Result.error("账号已过期");
+        } else if (user.getIsAccountNonLocked() == 0) {
+            return Result.error("账号已被锁定");
+        } else if (user.getIsCredentialsNonExpired() == 0) {
+            return Result.error("密码已过期");
+        } else if (user.getIsEnabled() == 0) {
+            return Result.error("账号已被禁用");
+        } else {
+            // 对密码进行解密，使用BCryptPasswordEncoder单向加密算法
+            if (PasswordUtil.matchPassword(password, user.getPassword())) {
+                return Result.ok(user);
+            } else {
+                return Result.error("密码错误");
+            }
+        }
     }
 
     // 2.新增用户(密码需用加密算法,头像需上传至OSS)
