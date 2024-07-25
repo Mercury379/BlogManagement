@@ -44,9 +44,24 @@ public class ReplayServiceImpl extends ServiceImpl<ReplayMapper, Replay> impleme
     @Transactional
     @Override
     public Result deleteReplayById(String replyId) {
-        // 使用 baseMapper 删除指定回复
-        baseMapper.deleteReplayById(replyId);
+        // 使用递归方法删除指定回复及其所有子回复
+        deleteReplayAndChildren(replyId);
         return Result.ok();
+    }
+
+    private void deleteReplayAndChildren(String replyId) {
+        // 先删除当前回复
+        baseMapper.deleteReplayById(replyId);
+
+        // 查找所有子回复
+        QueryWrapper<Replay> wrapper = new QueryWrapper<>();
+        wrapper.eq("parent_id", replyId);
+        List<Replay> childReplays = baseMapper.selectList(wrapper);
+
+        // 递归删除子回复
+        for (Replay childReplay : childReplays) {
+            deleteReplayAndChildren(childReplay.getId());
+        }
     }
     public Result findAllReplayByQuestionId(QuestionReplayREQ req) {
         if(StringUtils.isEmpty(req.getQuestionId())){
