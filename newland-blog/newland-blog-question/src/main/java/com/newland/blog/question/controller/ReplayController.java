@@ -44,10 +44,18 @@ public class ReplayController {
     public Result findAllReplayByQuestionId(@RequestBody QuestionReplayREQ req) {
         return replayService.findAllReplayByQuestionId(req);
     }
+
     //2-3
     @ApiOperation("根据问题id获得回复个数")
     @GetMapping("/replay/total/{id}")
     public Result getReplaysByQuestionIdTotal(@PathVariable("id") String id) {
         return replayService.getReplaysByQuestionIdTotal(id);
     }
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID统计该用户近6个月回复数")
+    @GetMapping("/usermonth/{id}")
+    public Result userMonthReplayTotal(@PathVariable("id") String id){
+        return replayService.getUserMonthReplayTotal(id);
+    }
+
 }

@@ -11,7 +11,8 @@
         union select date_format((curdate() - interval 3 month),'%Y-%m') AS `year_month`
         union select date_format((curdate() - interval 4 month),'%Y-%m') AS `year_month`
         union select date_format((curdate() - interval 5 month),'%Y-%m') AS `year_month`) `t1`
-        left join mxg_question `t2` on(((`t1`.`year_month` = date_format(`t2`.`create_date`,'%Y-%m')) and (`t2`.`status` != 0) and (t2.user_id=#{userId})))) group by `t1`.`year_month`
+        left join mxg_question `t2` on(((`t1`.`year_month` = date_format(`t2`.`create_date`,'%Y-%m'))
+        and (`t2`.`status` != 0) and (t2.user_id=#{userId})))) group by `t1`.`year_month`
     </select>
 <!--    根据问题id查询问题详情与属性标签ids-->
     <resultMap id="QuestionAndLabelIdsMap" type="Question">

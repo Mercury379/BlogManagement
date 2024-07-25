@@ -6,13 +6,29 @@ import com.newland.blog.entities.Menu;
 import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * <p>
+ * 用户信息表 Mapper 接口
+ * </p>
+ */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    Role findRoleByID(String id);
+    /**
+     * 3. 为用户赋予角色
+     * @param id 用户id
+     * @param role 角色名称
+     * @return
+     */
+    boolean assignRoles(@Param("id") String id,
+                             @Param("role") String role);
+
+
+    Role findRolebyID(String id);
 
     List<Menu> findMenuByUserID(String id);
 
