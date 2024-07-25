@@ -1,21 +1,15 @@
 package com.example.newblognewsystem.system.controller;
 
 import com.example.newblognewsystem.system.service.IUserService;
-import com.newland.blog.entities.Advert;
+import com.newland.blog.entities.Article;
 import com.newland.blog.entities.User;
-import com.newland.blog.util.aliyun.AliyunUtil;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.ArticleStatusEnum;
-import com.newland.blog.util.enums.PlatformEnum;
-import com.newland.blog.util.properties.AliyunProperties;
-import com.newland.blog.util.properties.BlogProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -25,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Api(value = "用户管理接口", description = "用户管理接口, 提供用户信息的增删改查")
 @RestController
 @RequestMapping("/user")
-@Validated
 public class UserController {
     /**1. 登录验证用户密码(需解密)
      * 2. 新增用户(密码需用加密算法,头像需上传至OSS)
@@ -47,30 +40,10 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @Autowired
-    private BlogProperties blogProperties;
-
     @ApiOperation("登录验证用户密码(需解密)")
     @PostMapping
-    public Result login(@RequestParam String userName, @RequestParam String password) {
-        return userService.login(userName, password);
-    }
-
-    @ApiOperation("新增用户(密码需用加密算法,头像需上传至OSS)")
-    @PostMapping("/add")
-    public Result add(@Validated User user, @RequestParam("file") MultipartFile file) {
-        if (!file.isEmpty()) {
-            // 将文件保存到OSS服务器
-            AliyunProperties aliyun = blogProperties.getAliyun();
-            Result fileRes = AliyunUtil.uploadFileToOss(PlatformEnum.USER, file, aliyun);
-            if(fileRes.getCode() != 20000) {
-                return Result.error(fileRes.getMessage());
-            }
-            user.setImageUrl(fileRes.getData().toString());
-        }
-        userService.saveUser(user);
-
-        return Result.ok();
+    public Result login() {
+        return null;
     }
 
     @ApiImplicitParam(
@@ -115,5 +88,10 @@ public class UserController {
     }
 
     //9. 修改用户信息
+    @ApiOperation("修改用户信息接口")
+    @PutMapping
+    public Result update(@RequestBody User user) {
+        return Result.ok(userService.updateById(user));
+    }
 
 }
