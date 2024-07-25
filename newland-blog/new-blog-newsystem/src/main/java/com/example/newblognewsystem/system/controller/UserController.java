@@ -4,13 +4,19 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.example.newblognewsystem.system.service.IUserService;
 import com.newland.blog.entities.Article;
 import com.newland.blog.entities.User;
+import com.newland.blog.util.aliyun.AliyunUtil;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.ArticleStatusEnum;
+import com.newland.blog.util.enums.PlatformEnum;
+import com.newland.blog.util.properties.AliyunProperties;
+import com.newland.blog.util.properties.BlogProperties;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * <p>
@@ -40,20 +46,37 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private BlogProperties blogProperties;
 
     @ApiOperation("登录验证用户密码(需解密)")
     @PostMapping
-    public Result login() {
-        return null;
+    public Result login(@RequestParam String userName, @RequestParam String password) {
+        return userService.login(userName, password);
+    }
+    @ApiOperation("新增用户(密码需用加密算法,头像需上传至OSS)")
+    @PostMapping("/add")
+    public Result add(@Validated User user, @RequestParam("file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            // 将文件保存到OSS服务器
+            AliyunProperties aliyun = blogProperties.getAliyun();
+            Result fileRes = AliyunUtil.uploadFileToOss(PlatformEnum.USER, file, aliyun);
+            if(fileRes.getCode() != 20000) {
+                return Result.error(fileRes.getMessage());
+            }
+            user.setImageUrl(fileRes.getData().toString());
+        }
+        userService.saveUser(user);
+
+        return Result.ok();
     }
 
+    //3. 为用户赋予角色
     @ApiImplicitParam(
             name = "id",
             value = "用户ID",
             required = true
     )
-
-    //3. 为用户赋予角色
     @ApiOperation("为用户赋予角色")
     @GetMapping("/{id}/{role}")
     public Result assignRoles(@PathVariable("id") String id,
@@ -71,6 +94,11 @@ public class UserController {
 
 
     //4. 根据用户ID查询其对应的所有菜单列表详细信息
+    @ApiOperation("根据用户ID返回菜单")
+    @GetMapping({"/menu/{id}"})
+    public Result findMenuByUserID(@PathVariable("id") String id) {
+        return userService.findMenuByUserID(id);
+    }
 
     //5. 根据用户ID返回其角色的详细信息
     @ApiOperation("根据用户ID返回其角色的详细信息")

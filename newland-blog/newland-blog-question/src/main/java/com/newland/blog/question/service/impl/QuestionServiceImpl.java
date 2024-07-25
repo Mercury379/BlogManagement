@@ -10,11 +10,14 @@ import com.newland.blog.question.mapper.QuestionMapper;
 import com.newland.blog.question.req.QuestionREQ;
 import com.newland.blog.question.req.QuestionReplayREQ;
 import com.newland.blog.question.req.QuestionUserREQ;
+import com.newland.blog.question.service.ArticleClient;
+import com.newland.blog.question.service.IQuestionLabelService;
 import com.newland.blog.question.service.IQuestionService;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.QuestionStatusEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,12 @@ import java.util.*;
  */
 @Service
 public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> implements IQuestionService{
+
+    @Autowired
+    private IQuestionLabelService questionLabelService;
+
+    @Autowired
+    private ArticleClient articleClient; // feign远程调用(xhq)
 
     @Transactional // 事务管理
     @Override
@@ -60,6 +69,22 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> im
         question.setUpdateDate(new Date());
         baseMapper.updateById(question);
         return Result.ok();
+    }
+
+    @Override
+    public Result findArticleByID(String id) {
+        //todo:根据问题id，查出文章id
+        //根据问题id，查出标签ids
+        List<String> labelIds = (List<String>) questionLabelService.getLabelIds(id).getData();
+        List<Object> labels = new ArrayList<>();
+        // 遍历list调用articleClient接口
+        for(String labelId : labelIds){
+            Result res = articleClient.findArticleById(labelId);
+
+            //根据标签id，远程调用文章微服务查询文章详细信息
+            labels.add(res.getData());
+        }
+        return Result.ok(labels);
     }
 
     @Override

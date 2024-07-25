@@ -72,11 +72,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
         return Result.ok();
     }
 
-    //3-2.修改指定用户的角色
+    //4. 根据用户ID返回菜单
     @Override
-    public Result updateRole(String id, String role){
-        baseMapper.updateRole(id,role);
-        return Result.ok();
+    public Result findMenuByUserID(String id) {
+        return Result.ok(baseMapper.findMenuByUserID(id));
     }
 
     //5. 根据用户ID返回其角色的详细信息

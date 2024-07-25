@@ -21,12 +21,22 @@
     </update>
 
 
-    <!--    通过文章id查询文章详情及标签-->
-    <select id="findRolebyID" resultType="Role">
+    <!--  通过用户id查role信息-->
+    <select id="findRoleByID" resultType="Role">
         SELECT m2.* FROM mxg_blog_system.sys_user_role m1
         Left join mxg_blog_system.sys_role m2 on m2.id = m1.role_id
         where m1.user_id=#{id}
     </select>
+
+    <select id="findMenuByUserID" resultType="Menu">
+        SELECT m3.* FROM mxg_blog_system.sys_user_role m1
+        left join mxg_blog_system.sys_role_menu m2 on m2.role_id=m1.role_id
+        left join mxg_blog_system.sys_menu m3 on m3.id=m2.menu_id
+
+        where m1.user_id=#{id}
+    </select>
+
+
 
 
 </mapper>

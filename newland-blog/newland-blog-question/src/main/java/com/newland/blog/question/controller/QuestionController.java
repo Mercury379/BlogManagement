@@ -1,6 +1,7 @@
 package com.newland.blog.question.controller;
 
 
+import com.newland.blog.entities.Label;
 import com.newland.blog.entities.Question;
 import com.newland.blog.question.req.QuestionREQ;
 import com.newland.blog.question.req.QuestionReplayREQ;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -98,11 +100,9 @@ public class QuestionController {
     @ApiOperation("根据问题ID查询文章详细信息")
     @GetMapping("/feign/{id}")
     public Result findArticleById(@PathVariable("id") String id) {
-        //todo:根据问题id，查出文章id
+       return questionService.findArticleByID(id);
 
 
-        //根据文章id，远程调用文章微服务查询文章详细信息
-        return articleClient.findArticleById(id);
     }
 
     //8: 根据用户ID统计该用户近六个月发布的问题数

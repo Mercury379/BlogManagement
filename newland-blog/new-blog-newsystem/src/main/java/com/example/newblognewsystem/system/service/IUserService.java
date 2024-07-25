@@ -1,11 +1,14 @@
 package com.example.newblognewsystem.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.newland.blog.entities.Menu;
 import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.ArticleStatusEnum;
 import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.List;
 
 /**
  * <p>
@@ -30,6 +33,16 @@ public interface IUserService extends IService<User> {
     Result saveUser(User user);
 
     Result findRolebyID(String id);
+
+
+
+    /**
+     * 4.查找菜单
+     * @param id 用户
+     * @return Result
+     */
+    Result findMenuByUserID(String id);
+
 
     /**
      * 3. 为用户赋予角色
