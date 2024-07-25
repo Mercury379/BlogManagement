@@ -137,5 +137,23 @@ public class UserController {
     public Result update(@RequestBody User user) {
         return Result.ok(userService.updateById(user));
     }
-
+    //10. 统计用户近6个月发表的文章数(需远程调用)
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID统计该用户近6个月发布的文章数")
+    @GetMapping("/article/{id}")
+    public Result userMonthArticleTotal(@PathVariable("id") String id){
+        return userService.userMonthArticleTotal(id);
+    }
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID统计该用户近6个月发布的问题数")
+    @GetMapping("/question/{id}")
+    public Result userMonthQuestionTotal(@PathVariable("id") String id){
+        return userService.userMonthQuestionTotal(id);
+    }
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID统计该用户近6个月发布的回复数")
+    @GetMapping("/replay/{id}")
+    public Result userMonthReplayTotal(@PathVariable("id") String id){
+        return userService.userMonthReplayTotal(id);
+    }
 }

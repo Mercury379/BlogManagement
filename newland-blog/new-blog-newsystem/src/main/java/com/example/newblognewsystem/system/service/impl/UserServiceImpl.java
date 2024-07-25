@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.newblognewsystem.system.client.ArticleClient;
+import com.example.newblognewsystem.system.client.QuestionClient;
 import com.example.newblognewsystem.system.mapper.UserMapper;
 import com.example.newblognewsystem.system.service.IUserService;
 import com.example.newblognewsystem.system.util.PasswordUtil;
@@ -15,6 +17,7 @@ import com.newland.blog.entities.User;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.ArticleStatusEnum;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -27,6 +30,10 @@ import java.util.UUID;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUserService {
+    @Autowired
+    public ArticleClient articleClient;
+    @Autowired
+    public QuestionClient questionClient;
 
     @Override
     public Result login(String userName, String password) {
@@ -114,6 +121,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
         IPage<User> page = baseMapper.selectPage(userPage, wrapper);
         return Result.ok(page);
     }
+    @Override
+    public Result userMonthQuestionTotal(String id) {
+        return questionClient.userMonthQuestionTotal(id);
+    }
 
+    @Override
+    public Result userMonthArticleTotal(String id) {
+        return articleClient.userMonthArticleTotal(id);
+    }
+
+    @Override
+    public Result userMonthReplayTotal(String id) {
+        return questionClient.userMonthReplayTotal(id);
+    }
 
 }

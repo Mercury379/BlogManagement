@@ -1,6 +1,7 @@
 package com.example.newblognewsystem.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.newblognewsystem.system.client.ArticleClient;
 import com.example.newblognewsystem.system.mapper.RoleMapper;
 import com.example.newblognewsystem.system.mapper.UserMapper;
 import com.example.newblognewsystem.system.service.IRoleService;
@@ -14,7 +15,6 @@ import java.util.UUID;
 
 @Service
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
-
     @Override
     public Result addRole(Role role) {
         // 检查是否已经存在相同 ID 的角色
@@ -54,5 +54,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         baseMapper.deleteById(roleId);
         return Result.ok();
     }
+
 
 }

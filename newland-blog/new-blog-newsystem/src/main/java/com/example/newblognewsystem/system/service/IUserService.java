@@ -72,6 +72,9 @@ public interface IUserService extends IService<User> {
      * @return
      */
     Result queryPage();
+    Result userMonthQuestionTotal(@PathVariable("id") String id);
+    Result userMonthArticleTotal(@PathVariable("id") String id);
+    Result userMonthReplayTotal(@PathVariable("id") String id);
 
 
 
