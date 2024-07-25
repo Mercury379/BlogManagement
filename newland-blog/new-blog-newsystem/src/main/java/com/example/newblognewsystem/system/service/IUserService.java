@@ -5,6 +5,7 @@ import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.ArticleStatusEnum;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * <p>
@@ -30,7 +31,13 @@ public interface IUserService extends IService<User> {
 
     Result findRolebyID(String id);
 
-
+    /**
+     * 3. 为用户赋予角色
+     * @param id 用户id
+     * @param role 角色名称
+     * @return Result
+     */
+    Result assignRoles(String id,String role);
 
     /**
      * 6.修改状态：

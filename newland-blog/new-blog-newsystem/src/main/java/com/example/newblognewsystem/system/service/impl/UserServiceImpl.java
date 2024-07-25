@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * <p>
@@ -64,6 +65,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
         return Result.ok();
     }
 
+    //3. 为用户赋予角色
+    @Override
+    public Result assignRoles(String id,String role){
+        baseMapper.assignRoles(id,role);
+        return Result.ok();
+    }
+
+    //5. 根据用户ID返回其角色的详细信息
     @Override
     public Result findRolebyID(String id) {
         Role role=baseMapper.findRolebyID(id);

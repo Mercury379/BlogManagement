@@ -1,5 +1,6 @@
 package com.example.newblognewsystem.system.controller;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.example.newblognewsystem.system.service.IUserService;
 import com.newland.blog.entities.Article;
 import com.newland.blog.entities.User;
@@ -53,6 +54,12 @@ public class UserController {
     )
 
     //3. 为用户赋予角色
+    @ApiOperation("为用户赋予角色")
+    @GetMapping("/{id}/{role}")
+    public Result assignRoles(@PathVariable("id") String id,
+                              @PathVariable("role") String role){
+        return userService.assignRoles(id,role);
+    }
 
     //4. 根据用户ID查询其对应的所有菜单列表详细信息
 
