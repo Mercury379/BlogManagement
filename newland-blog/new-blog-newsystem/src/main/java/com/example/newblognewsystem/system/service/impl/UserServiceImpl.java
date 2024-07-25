@@ -29,8 +29,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
 
     @Override
     public Result findRolebyID(String id) {
-        baseMapper.findRolebyID(id);
-        return Result.ok();
+        Role role=baseMapper.findRolebyID(id);
+        return Result.ok(role);
     }
 
     //6. 删除用户(假删除）
