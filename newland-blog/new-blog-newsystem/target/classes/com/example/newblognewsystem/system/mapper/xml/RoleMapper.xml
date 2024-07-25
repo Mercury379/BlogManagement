@@ -10,7 +10,7 @@
     <!-- 插入角色与菜单的关联记录 -->
     <insert id="insertRoleMenus">
         INSERT INTO mxg_blog_system.sys_role_menu (id, role_id, menu_id)
-            values 
+            values
         <foreach collection="menuIds" item="roleMenu" separator=",">
             ( '${@com.baomidou.mybatisplus.core.toolkit.IdWorker@getId()}', #{roleId}, #{roleMenu})
         </foreach>
