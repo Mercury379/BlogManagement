@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api(value = "用户管理接口", description = "用户管理接口, 提供用户信息的增删改查")
+@Api(value = "用户管理接口", description = "用户管理接口, 提供用户的增删改查")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -38,28 +38,16 @@ public class UserController {
         return null;
     }
 
-    //4. 根据用户ID查询其对应的所有菜单列表详细信息
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
-    @ApiOperation("根据用户ID查询其可操作的菜单信息")
-    @GetMapping("/menu/{id}")
-    public Result findMenubyID(@PathVariable("id") String id) {
-        //使用mybatis-plus执行自己的sql语句
-        //List<Menu> menus = menuMapper.findMenuByUserId(id);
-
-        //return Result.ok(menus);
-
+    @ApiImplicitParam(
+            name = "id",
+            value = "用户ID",
+            required = true
+    )
+    @ApiOperation("根据用户ID返回其角色的详细信息")
+    @GetMapping({"/{id}"})
+    public Result findRolebyID(@PathVariable("id") String id) {
         return Result.ok("查询成功,xhq");
     }
 
-
-    //5. 根据用户ID返回其角色的详细信息
-    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
-    @ApiOperation("根据用户ID返回其角色的详细信息")
-    @GetMapping("/role/{id}")
-    public Result findRolebyID(@PathVariable("id") String id) {
-
-
-        return Result.ok(userService.findRolebyID(id));
-    }
 
 }
