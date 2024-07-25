@@ -22,5 +22,16 @@
         SELECT COUNT(*) FROM mxg_replay
         WHERE question_id = #{questionId}
     </select>
-
+    <select id="getUserMonthReplayTotal" resultType="map">
+        select `t1`.`year_month`
+                   AS `year_month`,count(`t2`.`id`)
+                   AS `total`
+        from ((select date_format(curdate(),'%Y-%m') AS `year_month`
+               union select date_format((curdate() - interval 1 month),'%Y-%m') AS `year_month`
+               union select date_format((curdate() - interval 2 month),'%Y-%m') AS `year_month`
+               union select date_format((curdate() - interval 3 month),'%Y-%m') AS `year_month`
+               union select date_format((curdate() - interval 4 month),'%Y-%m') AS `year_month`
+               union select date_format((curdate() - interval 5 month),'%Y-%m') AS `year_month`) `t1`
+            left join mxg_replay `t2` on(((`t1`.`year_month` = date_format(`t2`.`create_date`,'%Y-%m')) and  (t2.user_id=#{userId})))) group by `t1`.`year_month`
+    </select>
 </mapper>
