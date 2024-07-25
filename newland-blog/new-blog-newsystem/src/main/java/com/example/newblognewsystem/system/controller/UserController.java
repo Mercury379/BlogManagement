@@ -38,15 +38,29 @@ public class UserController {
         return null;
     }
 
-    @ApiImplicitParam(
-            name = "id",
-            value = "用户ID",
-            required = true
-    )
+
+    //4. 根据用户ID查询其对应的所有菜单列表详细信息
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID查询其可操作的菜单信息")
+    @GetMapping("/menu/{id}")
+    public Result findMenubyID(@PathVariable("id") String id) {
+        //使用mybatis-plus执行自己的sql语句
+        //List<Menu> menus = menuMapper.findMenuByUserId(id);
+
+        //return Result.ok(menus);
+
+        return userService.findMenuByUserID(id);
+    }
+
+
+    //5. 根据用户ID返回其角色的详细信息
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
     @ApiOperation("根据用户ID返回其角色的详细信息")
-    @GetMapping({"/{id}"})
+    @GetMapping("/role/{id}")
     public Result findRolebyID(@PathVariable("id") String id) {
-        return Result.ok("查询成功,xhq");
+
+
+        return Result.ok(userService.findRoleByID(id));
     }
 
 

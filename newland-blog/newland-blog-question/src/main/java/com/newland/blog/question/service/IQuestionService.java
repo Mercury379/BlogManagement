@@ -32,6 +32,8 @@ public interface IQuestionService  extends IService<Question> {
      */
     Result updateStatus(String id, QuestionStatusEnum statusEnum);
 
+    Result findArticleByID(String id);
+
     /**
      * 根据文章id更新点赞数
      * @param id 文章id

@@ -18,9 +18,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
     }
 
     @Override
-    public Role findRolebyID(String id) {
-        baseMapper.findRolebyID(id);
-        return baseMapper.findRolebyID(id);
+    public Role findRoleByID(String id) {
+        baseMapper.findRoleByID(id);
+        return baseMapper.findRoleByID(id);
+    }
+
+    @Override
+    public Result findMenuByUserID(String id) {
+        return Result.ok(baseMapper.findMenuByUserID(id));
     }
 
 
