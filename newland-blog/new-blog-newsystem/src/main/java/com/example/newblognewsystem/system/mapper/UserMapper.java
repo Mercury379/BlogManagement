@@ -6,6 +6,7 @@ import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -25,6 +26,15 @@ public interface UserMapper extends BaseMapper<User> {
      */
     boolean assignRoles(@Param("id") String id,
                              @Param("role") String role);
+
+    /**
+     * 3-2.修改指定用户的角色
+     * @param id 用户id
+     * @param role 角色名称
+     * @return
+     */
+    boolean updateRole(@PathVariable("id") String id,
+                       @PathVariable("role") String role);
 
 
     Role findRolebyID(String id);

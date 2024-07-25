@@ -61,6 +61,15 @@ public class UserController {
         return userService.assignRoles(id,role);
     }
 
+    //3-2.修改指定用户的角色
+    @ApiOperation("修改指定用户的角色")
+    @PutMapping("/updateRole/{id}/{role}")
+    public Result updateRole(@PathVariable("id") String id,
+                             @PathVariable("role") String role) {
+        return userService.updateRole(id,role);
+    }
+
+
     //4. 根据用户ID查询其对应的所有菜单列表详细信息
 
     //5. 根据用户ID返回其角色的详细信息

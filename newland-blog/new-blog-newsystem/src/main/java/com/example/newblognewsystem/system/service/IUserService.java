@@ -40,6 +40,14 @@ public interface IUserService extends IService<User> {
     Result assignRoles(String id,String role);
 
     /**
+     * 3-2.修改指定用户的角色
+     * @param id 用户id
+     * @param role 角色名称
+     * @return Result
+     */
+    Result updateRole(String id, String role);
+
+    /**
      * 6.修改状态：
      * @param id 用户id
      * @return

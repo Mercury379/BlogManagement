@@ -2,6 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.newblognewsystem.system.mapper.UserMapper">
 
+    <!-- 通过用户id和角色名称给用户赋予角色-->
+    <insert id="assignRoles">
+        insert into sys_user_role(id,user_id, role_id)
+        select '${@com.baomidou.mybatisplus.core.toolkit.IdWorker@getId()}',#{id},r.id
+        from sys_role r
+        where r.name=#{role}
+    </insert>
+
+    <!-- 通过用户id和角色名称修改用户的角色-->
+    <update id="updateRole">
+        update sys_user_role
+        set role_id=(select r.id
+        from sys_role r
+        where r.name=#{role}
+        LIMIT 1)
+        where user_id=#{id}
+    </update>
 
 
     <!--    通过文章id查询文章详情及标签-->
