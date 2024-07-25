@@ -2,7 +2,6 @@ package com.example.newblognewsystem.system.controller;
 
 import com.example.newblognewsystem.system.service.IUserService;
 import com.newland.blog.util.base.Result;
-import com.newland.blog.util.enums.ArticleStatusEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -49,8 +48,6 @@ public class UserController {
 
         //return Result.ok(menus);
 
-
-
         return Result.ok("查询成功,xhq");
     }
 
@@ -60,12 +57,9 @@ public class UserController {
     @ApiOperation("根据用户ID返回其角色的详细信息")
     @GetMapping("/role/{id}")
     public Result findRolebyID(@PathVariable("id") String id) {
-        //使用mybatis-plus执行自己的sql语句
-        //Role role = roleMapper.findRoleByUserId(id);
-        //return Result.ok(role);
 
 
-        return Result.ok("查询成功,xhq");
+        return Result.ok(userService.findRolebyID(id));
     }
 
 }

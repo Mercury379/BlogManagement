@@ -34,7 +34,8 @@ spring:
 mybatis-plus:
   type-aliases-package: com.newland.blog.entities
   # xxxMapper.xml \u8DEF\u5F84
-  mapper-locations: classpath*:com/newland/blog/question/mapper/**/*.xml
+
+  mapper-locations: classpath*:com/example/newblognewsystem/system/mapper/**/*.xml
 
 # \u65E5\u5FD7\u7EA7\u522B\uFF0C\u4F1A\u6253\u5370sql\u8BED\u53E5
 logging:
