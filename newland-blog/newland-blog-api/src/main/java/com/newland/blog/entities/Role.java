@@ -10,21 +10,27 @@ import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
+/**
+ * <p>
+ * 角色信息表
+ * </p>
+ */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_role")
-@ApiModel(value="role对象", description="角色信息表")
+@ApiModel(value="Role对象", description="角色信息表")
 public class Role {
-    // id varchar, name varchar, create_date timestamp,update_date timestamp
+
     private static final long serialVersionUID = 1L;
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+
     @ApiModelProperty(value = "主键")
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private String id;
 
-    @ApiModelProperty(value = "角色类型")
+    @ApiModelProperty(value = "角色名称")
     private String name;
 
-    @ApiModelProperty(value = "权限说明")
+    @ApiModelProperty(value = "角色说明")
     private String remark;
 
     @ApiModelProperty(value = "创建时间")
@@ -32,5 +38,4 @@ public class Role {
 
     @ApiModelProperty(value = "更新时间")
     private Date updateDate;
-
 }

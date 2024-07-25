@@ -2,6 +2,8 @@ package com.newland.blog.question.controller;
 
 
 import com.newland.blog.entities.Question;
+import com.newland.blog.question.req.QuestionREQ;
+import com.newland.blog.question.req.QuestionReplayREQ;
 import com.newland.blog.question.req.QuestionUserREQ;
 import com.newland.blog.question.service.ArticleClient;
 import com.newland.blog.question.service.IQuestionService;
@@ -13,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -45,21 +49,21 @@ public class QuestionController {
     @Autowired
     ArticleClient articleClient; // feign远程调用(xhq)
 
-    //1：修改问题信息接口
+    //1：修改问题信息接口√
     @ApiOperation("修改问题信息接口")
     @PutMapping // put 请求 localhost:8001/article/article
     public Result update(@RequestBody Question question) {
         return questionService.updateOrSave(question);
     }
 
-    // 2：新增问题信息接口
+    // 2：新增问题信息接口√
     @ApiOperation("新增问题信息接口")
     @PostMapping
     public Result save(@RequestBody Question question) {
         return questionService.updateOrSave(question);
     }
 
-    //3: 删除问题信息接口
+    //3: 删除问题信息接口√
     @ApiImplicitParam(name = "id", value = "问题ID", required = true)
     @ApiOperation("删除问题接口")
     @DeleteMapping("/{id}")
@@ -68,7 +72,7 @@ public class QuestionController {
         return questionService.updateStatus(id, QuestionStatusEnum.DELETE);
     }
 
-    //4: 更新点赞数
+    //4: 更新点赞数√
     @ApiOperation("更新点赞数")
     @PutMapping("/thumb/{id}/{count}")
     public Result updataThumhup(@PathVariable("id") String id,
@@ -82,11 +86,12 @@ public class QuestionController {
     public Result findListByUserId(@RequestBody QuestionUserREQ req) {
         return questionService.findListByUserId(req);
     }
+
     //6: 查询提问总记录
     @ApiOperation("查询提问总记录")
-    @GetMapping("/total")
-    public Result getQuestionTotal() {
-        return questionService.getQuestionTotal();
+    @PostMapping("/total")
+    public Result getQuestionTotal(@RequestBody QuestionREQ req) {
+        return questionService.queryPage(req);
     }
 
     //7 : 根据问题ID 远程调用文章微服务查询文章详细信息
@@ -99,9 +104,19 @@ public class QuestionController {
         //根据文章id，远程调用文章微服务查询文章详细信息
         return articleClient.findArticleById(id);
     }
+    //8: 根据用户ID统计该用户近六个月发布的问题数
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("根据用户ID统计该用户近6个月发布的问题数")
+    @GetMapping("/usermonth/{id}")
+    public Result userMonthQuestionTotal(@PathVariable("id") String id){
+        return questionService.getUserMonthQuestionTotal(id);
+    }
 
-
-
-
-
+    //2-1 : 修改问题的对应标签
+    @ApiOperation("修改问题的对应标签")
+    @PostMapping("/addLabel")
+    public Result addQuestionLabel(@RequestParam("questionId") String questionId,
+                                   @RequestParam("labelIds") List<String> labelIds) {
+        return questionService.addQuestionLabel(questionId, labelIds);
+    }
 }

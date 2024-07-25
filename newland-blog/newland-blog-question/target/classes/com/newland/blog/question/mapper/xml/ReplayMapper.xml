@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.newland.blog.question.mapper.ReplayMapper">
+
+    <!-- 插入新的回复 -->
+    <insert id="saveReplay">
+        INSERT INTO mxg_replay (id, parent_id, user_id, nick_name, user_image, question_id, md_content, html_content, create_date)
+        VALUES (#{id}, #{parentId}, #{userId}, #{nickName}, #{userImage}, #{questionId}, #{mdContent}, #{htmlContent}, #{createDate})
+    </insert>
+
+    <!-- 通过回复ID删除回复 -->
+    <delete id="deleteReplayById">
+        DELETE FROM mxg_replay WHERE id = #{replyId}
+    </delete>
+
+    <!-- 根据ID查询回复 -->
+    <select id="selectById" resultType="com.newland.blog.entities.Replay">
+        SELECT * FROM mxg_replay WHERE id = #{replyId}
+    </select>
+
+    <select id="getNumOfReplaysByQuestionId" resultType="int">
+        SELECT COUNT(*) FROM mxg_replay
+        WHERE question_id = #{questionId}
+    </select>
+
+</mapper>

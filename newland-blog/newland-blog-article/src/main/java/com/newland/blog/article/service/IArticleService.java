@@ -90,4 +90,8 @@ public interface IArticleService extends IService<Article> {
      * @return
      */
     Result selectMonthArticleTotal();
+    /**
+     * 根据用户id统计该用户近6个月发表的文章数
+     */
+    Result getUserMonthArticleTotal(String userId);
 }

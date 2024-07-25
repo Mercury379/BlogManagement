@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.newland.blog.question.mapper.QuestionMapper">
-
-
-
+    <select id="getUserMonthQuestionTotal" resultType="map">
+        select `t1`.`year_month`
+        AS `year_month`,count(`t2`.`id`)
+        AS `total`
+        from ((select date_format(curdate(),'%Y-%m') AS `year_month`
+        union select date_format((curdate() - interval 1 month),'%Y-%m') AS `year_month`
+        union select date_format((curdate() - interval 2 month),'%Y-%m') AS `year_month`
+        union select date_format((curdate() - interval 3 month),'%Y-%m') AS `year_month`
+        union select date_format((curdate() - interval 4 month),'%Y-%m') AS `year_month`
+        union select date_format((curdate() - interval 5 month),'%Y-%m') AS `year_month`) `t1`
+        left join mxg_question `t2` on(((`t1`.`year_month` = date_format(`t2`.`create_date`,'%Y-%m')) and (`t2`.`status` != 0) and (t2.user_id=#{userId})))) group by `t1`.`year_month`
+    </select>
 <!--    根据问题id查询问题详情与属性标签ids-->
     <resultMap id="QuestionAndLabelIdsMap" type="Question">
         <id column="id" property="id"/>
@@ -41,5 +50,9 @@
     </insert>
 
 
+    <select id="findReplaysByQuestionId" resultType="Replay">
+        SELECT * FROM mxg_replay
+        WHERE question_id = #{questionId}
+    </select>
 
 </mapper>

@@ -2,9 +2,13 @@ package com.newland.blog.question.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.blog.entities.Question;
+import com.newland.blog.question.req.QuestionREQ;
+import com.newland.blog.question.req.QuestionReplayREQ;
 import com.newland.blog.question.req.QuestionUserREQ;
 import com.newland.blog.util.base.Result;
 import com.newland.blog.util.enums.QuestionStatusEnum;
+
+import java.util.List;
 
 /**
  * <p>
@@ -47,6 +51,16 @@ public interface IQuestionService  extends IService<Question> {
      * 查询提问总记录
      * @return 查询结果
      */
-    Result getQuestionTotal();
-
+    Result queryPage(QuestionREQ req);
+    /**
+     * 为问题新增标签
+     * @param questionId 问题ID
+     * @param labelIds 标签集合
+     * @return
+     */
+    Result addQuestionLabel(String questionId, List<String> labelIds);
+    /**
+     * 根据用户id统计该用户近6个月发表的问题数
+     */
+    Result getUserMonthQuestionTotal(String userId);
 }
