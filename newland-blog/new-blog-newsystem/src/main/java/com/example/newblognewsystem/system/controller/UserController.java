@@ -3,11 +3,10 @@ package com.example.newblognewsystem.system.controller;
 import com.example.newblognewsystem.system.service.IUserService;
 import com.newland.blog.util.base.Result;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(value = "用户管理接口", description = "用户管理接口, 提供用户的增删改查")
 @RestController
@@ -37,6 +36,17 @@ public class UserController {
     @PostMapping
     public Result login() {
         return null;
+    }
+
+    @ApiImplicitParam(
+            name = "id",
+            value = "用户ID",
+            required = true
+    )
+    @ApiOperation("根据用户ID返回其角色的详细信息")
+    @GetMapping({"/{id}"})
+    public Result findRolebyID(@PathVariable("id") String id) {
+        return Result.ok("查询成功,xhq");
     }
 
 
