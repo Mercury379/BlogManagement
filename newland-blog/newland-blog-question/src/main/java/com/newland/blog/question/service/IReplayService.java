@@ -34,4 +34,5 @@ public interface IReplayService extends IService<Replay> {
      * @return 查询结果
      */
     Result getReplaysByQuestionIdTotal(String questionId);
+    public Result getUserMonthReplayTotal(String userId);
 }

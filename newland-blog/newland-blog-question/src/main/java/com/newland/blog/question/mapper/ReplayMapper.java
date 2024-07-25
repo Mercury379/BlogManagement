@@ -3,6 +3,10 @@ package com.newland.blog.question.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.newland.blog.entities.Replay;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ReplayMapper extends BaseMapper<Replay> {
@@ -21,4 +25,5 @@ public interface ReplayMapper extends BaseMapper<Replay> {
      * @return 回复个数
      */
     int getNumOfReplaysByQuestionId(String questionId);
+    List<Map<String,Object>> getUserMonthReplayTotal(@Param("userId") String userId);
 }

@@ -2,13 +2,14 @@ package com.example.newblognewsystem.system.controller;
 
 import com.example.newblognewsystem.system.service.IUserService;
 import com.newland.blog.util.base.Result;
+import com.newland.blog.util.enums.ArticleStatusEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Api(value = "用户管理接口", description = "用户管理接口, 提供用户的增删改查")
+@Api(value = "用户管理接口", description = "用户管理接口, 提供用户信息的增删改查")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -29,6 +30,10 @@ public class UserController {
      * 13. 统计用户近6个月发表的评论数(需远程调用)
      */
 
+    //4. 根据用户ID查询其对应的所有菜单列表详细信息
+
+
+    //5. 根据用户ID返回其角色的详细信息
     @Autowired
     private IUserService userService;
 
@@ -48,6 +53,5 @@ public class UserController {
     public Result findRolebyID(@PathVariable("id") String id) {
         return Result.ok("查询成功,xhq");
     }
-
 
 }
