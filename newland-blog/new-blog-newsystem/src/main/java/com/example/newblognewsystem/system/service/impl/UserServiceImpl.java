@@ -1,5 +1,6 @@
 package com.example.newblognewsystem.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.api.R;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.newblognewsystem.system.mapper.UserMapper;
@@ -27,9 +28,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
     }
 
     @Override
-    public Role findRolebyID(String id) {
+    public Result findRolebyID(String id) {
         baseMapper.findRolebyID(id);
-        return baseMapper.findRolebyID(id);
+        return Result.ok();
     }
 
     //6. 删除用户(假删除）

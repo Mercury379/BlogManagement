@@ -51,7 +51,16 @@ public class UserController {
     @ApiOperation("根据用户ID返回其角色的详细信息")
     @GetMapping({"/{id}"})
     public Result findRolebyID(@PathVariable("id") String id) {
-        return Result.ok("查询成功,xhq");
+        return userService.findRolebyID(id);
+    }
+
+    //6. 删除用户(假删除）
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("删除用户接口")
+    @DeleteMapping("/delete/{id}")
+    public Result delete(@PathVariable("id") String id) {
+        // 假删除，只是将状态更新
+        return userService.updateStatus(id);
     }
 
 }
