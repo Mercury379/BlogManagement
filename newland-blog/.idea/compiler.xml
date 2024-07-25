@@ -8,21 +8,23 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="newland-blog-util" />
-        <module name="newland-blog-api" />
         <module name="newland-blog-article" />
         <module name="new-blog-newsystem" />
-        <module name="newland-blog-generator" />
         <module name="newland-blog-question" />
+        <module name="newland-blog-api" />
+        <module name="newland-blog-newsystem" />
+        <module name="newland-blog-generator" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="new-blog-newsystem" options="-parameters" />
-      <module name="newland-blog" options="" />
+      <module name="newland-blog" options="-parameters" />
       <module name="newland-blog-api" options="-parameters" />
       <module name="newland-blog-article" options="-parameters" />
       <module name="newland-blog-generator" options="-parameters" />
+      <module name="newland-blog-newsystem" options="-parameters" />
       <module name="newland-blog-question" options="-parameters" />
       <module name="newland-blog-util" options="-parameters" />
     </option>

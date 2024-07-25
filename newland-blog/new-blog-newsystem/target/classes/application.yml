@@ -1,4 +1,9 @@
 #spring.application.name=new-blog-newsystem
+swagger:
+  title: 新大陆分布式与微服务的技术论讨——许豪强——20247.25
+  description: 新大陆技术论讨-用户接口
+  exclude-path: /error # 剔除请求
+
 server:
   port: 8003
   servlet:
