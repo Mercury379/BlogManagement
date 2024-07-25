@@ -9,6 +9,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * <p>
+ * 用户信息表 前端控制器
+ * </p>
+ */
 @Api(value = "用户管理接口", description = "用户管理接口, 提供用户信息的增删改查")
 @RestController
 @RequestMapping("/user")
@@ -30,10 +35,6 @@ public class UserController {
      * 15. 统计用户近6个月发表的评论数(需远程调用)
      */
 
-    //4. 根据用户ID查询其对应的所有菜单列表详细信息
-
-
-    //5. 根据用户ID返回其角色的详细信息
     @Autowired
     private IUserService userService;
 
@@ -48,6 +49,11 @@ public class UserController {
             value = "用户ID",
             required = true
     )
+
+    //4. 根据用户ID查询其对应的所有菜单列表详细信息
+
+
+    //5. 根据用户ID返回其角色的详细信息
     @ApiOperation("根据用户ID返回其角色的详细信息")
     @GetMapping({"/{id}"})
     public Result findRolebyID(@PathVariable("id") String id) {
@@ -62,5 +68,14 @@ public class UserController {
         // 假删除，只是将状态更新
         return userService.updateStatus(id);
     }
+
+    //7. 根据ID，查询用户的详细信息
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true)
+    @ApiOperation("查询用户详情接口")
+    @GetMapping("/view/{id}")
+    public Result view(@PathVariable("id") String id) {
+        return Result.ok( userService.getById(id) );
+    }
+
 
 }
