@@ -4,7 +4,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import com.newland.blog.util.base.Result;
+import com.newland.blog.util.enums.ArticleStatusEnum;
 
+/**
+ * <p>
+ * 用户信息表 服务类
+ * </p>
+ */
 public interface IUserService extends IService<User> {
 
     /**
@@ -21,6 +27,13 @@ public interface IUserService extends IService<User> {
      * 2.新增用户(密码需用加密算法,头像需上传至OSS)
      *
      */
+
+    /**
+     * 6.修改状态：
+     * @param id 用户id
+     * @return
+     */
+    Result updateStatus(String id);
 
 
 

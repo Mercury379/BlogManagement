@@ -33,8 +33,8 @@ public interface IQuestionService  extends IService<Question> {
     Result updateStatus(String id, QuestionStatusEnum statusEnum);
 
     /**
-     * 根据文章id更新点赞数
-     * @param id 文章id
+     * 根据问题id更新点赞数
+     * @param id 问题id
      * @param count 点赞接收+1，取消点赞 -1
      * @return
      */
