@@ -5,6 +5,9 @@ import com.newland.blog.entities.Article;
 import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,6 +16,16 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+
+    /**
+     * 3. 为用户赋予角色
+     * @param id 用户id
+     * @param role 角色名称
+     * @return
+     */
+    boolean assignRoles(@Param("id") String id,
+                             @Param("role") String role);
+
 
     Role findRolebyID(String id);
 
