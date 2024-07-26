@@ -41,4 +41,10 @@ public class RoleController {
     public Result deleteRole(@PathVariable String roleId) {
         return roleService.deleteRole(roleId);
     }
+    @ApiOperation(value = "根据角色ID查询角色详情")
+    @PostMapping("/{roleId}")
+    @Transactional
+    public Result getRole(@PathVariable String roleId) {
+        return roleService.getRole(roleId);
+    }
 }

@@ -58,4 +58,11 @@ public class ReplayController {
         return replayService.getUserMonthReplayTotal(id);
     }
 
+    @ApiImplicitParam(name = "id", value = "回复ID", required = true)
+    @ApiOperation("根据回复ID返回回复详情")
+    @GetMapping("/{id}")
+    public Result getReplay(@PathVariable("id") String id){
+        return replayService.getReplay(id);
+    }
+
 }

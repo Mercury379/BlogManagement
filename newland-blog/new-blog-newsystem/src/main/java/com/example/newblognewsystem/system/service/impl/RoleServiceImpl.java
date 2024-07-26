@@ -8,6 +8,7 @@ import com.example.newblognewsystem.system.service.IRoleService;
 import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
 import com.newland.blog.util.base.Result;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,6 +54,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         // 删除角色
         baseMapper.deleteById(roleId);
         return Result.ok();
+    }
+
+    @Override
+    public Result getRole(String roleId) {
+        if(StringUtils.isEmpty(roleId)){
+            return Result.error("角色ID为空");
+        }
+        Role role=baseMapper.findRoleById(roleId);
+        return Result.ok(role);
     }
 
 

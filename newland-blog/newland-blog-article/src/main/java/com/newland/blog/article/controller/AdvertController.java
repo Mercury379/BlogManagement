@@ -71,7 +71,8 @@ public class AdvertController {
         if (!file.isEmpty()) {
             // 将文件保存到OSS服务器
             AliyunProperties aliyun = blogProperties.getAliyun();
-            Result fileRes = AliyunUtil.uploadFileToOss(PlatformEnum.ARTICLE, file, aliyun);
+            Result fileRes
+                    = AliyunUtil.uploadFileToOss(PlatformEnum.ARTICLE, file, aliyun);
             if(fileRes.getCode() != 20000) {
                 return Result.error(fileRes.getMessage());
             }

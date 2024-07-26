@@ -80,7 +80,6 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper,Question> im
         // 遍历list调用articleClient接口
         for(String labelId : labelIds){
             Result res = articleClient.findArticleById(labelId);
-
             //根据标签id，远程调用文章微服务查询文章详细信息
             labels.add(res.getData());
         }

@@ -15,4 +15,5 @@ public interface IRoleService extends IService<Role> {
     Result addRole(Role role);
     Result addMenusToRole(String roleId, List<String> menuIds);
     Result deleteRole(String roleId);
+    Result getRole(String roleId);
 }

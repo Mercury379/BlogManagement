@@ -35,4 +35,5 @@ public interface IReplayService extends IService<Replay> {
      */
     Result getReplaysByQuestionIdTotal(String questionId);
     public Result getUserMonthReplayTotal(String userId);
+    public Result getReplay(String id);
 }

@@ -100,5 +100,14 @@ public class ReplayServiceImpl extends ServiceImpl<ReplayMapper, Replay> impleme
         data.put("replayTotalList", articleTotalList);
         return Result.ok(data);
     }
+
+    @Override
+    public Result getReplay(String id) {
+        if(StringUtils.isEmpty(id)){
+            return Result.error("回复不存在");
+        }
+        Replay replay=baseMapper.selectById(id);
+        return Result.ok(replay);
+    }
 }
 
