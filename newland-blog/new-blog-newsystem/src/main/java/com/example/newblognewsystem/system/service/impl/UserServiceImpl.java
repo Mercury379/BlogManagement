@@ -9,6 +9,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.newblognewsystem.system.client.ArticleClient;
 import com.example.newblognewsystem.system.client.QuestionClient;
 import com.example.newblognewsystem.system.mapper.UserMapper;
+import com.example.newblognewsystem.system.req.ArticleUserREQ;
+import com.example.newblognewsystem.system.req.QuestionUserREQ;
+import com.example.newblognewsystem.system.req.ReplayUserREQ;
 import com.example.newblognewsystem.system.service.IUserService;
 import com.example.newblognewsystem.system.util.PasswordUtil;
 import com.newland.blog.entities.Article;
@@ -134,6 +137,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUs
     @Override
     public Result userMonthReplayTotal(String id) {
         return questionClient.userMonthReplayTotal(id);
+    }
+
+    @Override
+    public Result findArticleListByUserId(ArticleUserREQ req) {
+        return articleClient.findListByUserId(req);
+    }
+
+    @Override
+    public Result findReplayListByUserId(ReplayUserREQ req) {
+        return questionClient.findReplayListByUserId(req);
+    }
+
+    @Override
+    public Result findQuestionListByUserId(QuestionUserREQ req) {
+        return questionClient.findQuestionListByUserId(req);
     }
 
 }

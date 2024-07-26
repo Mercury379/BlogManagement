@@ -2,6 +2,7 @@ package com.newland.blog.question.controller;
 
 import com.newland.blog.entities.Replay;
 import com.newland.blog.question.req.QuestionReplayREQ;
+import com.newland.blog.question.req.ReplayUserREQ;
 import com.newland.blog.question.service.IReplayService;
 import com.newland.blog.util.base.Result;
 import io.swagger.annotations.Api;
@@ -63,6 +64,11 @@ public class ReplayController {
     @GetMapping("/{id}")
     public Result getReplay(@PathVariable("id") String id){
         return replayService.getReplay(id);
+    }
+    @ApiOperation("根据用户ID查询用户所有回复的历史记录")
+    @PostMapping ("/user")
+    public Result getUserReplay(@RequestBody ReplayUserREQ req){
+        return replayService.getUserReplay(req);
     }
 
 }

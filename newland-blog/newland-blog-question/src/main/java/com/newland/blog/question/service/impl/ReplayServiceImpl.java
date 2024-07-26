@@ -7,6 +7,7 @@ import com.newland.blog.entities.Question;
 import com.newland.blog.entities.Replay;
 import com.newland.blog.question.mapper.ReplayMapper;
 import com.newland.blog.question.req.QuestionReplayREQ;
+import com.newland.blog.question.req.ReplayUserREQ;
 import com.newland.blog.question.service.IReplayService;
 import com.newland.blog.util.base.Result;
 import org.apache.commons.lang.StringUtils;
@@ -108,6 +109,16 @@ public class ReplayServiceImpl extends ServiceImpl<ReplayMapper, Replay> impleme
         }
         Replay replay=baseMapper.selectById(id);
         return Result.ok(replay);
+    }
+
+    @Override
+    public Result getUserReplay(ReplayUserREQ req) {
+        QueryWrapper<Replay> wrapper = new QueryWrapper<>();
+        if(StringUtils.isNotEmpty(req.getUserId())){
+            wrapper.eq("user_id", req.getUserId());
+        }
+        IPage<Replay> replays = baseMapper.selectPage(req.getPage(),wrapper);
+        return Result.ok(replays);
     }
 }
 

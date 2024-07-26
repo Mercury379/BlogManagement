@@ -1,8 +1,12 @@
 package com.example.newblognewsystem.system.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
+import com.example.newblognewsystem.system.req.ArticleUserREQ;
+import com.example.newblognewsystem.system.req.QuestionUserREQ;
+import com.example.newblognewsystem.system.req.ReplayUserREQ;
 import com.example.newblognewsystem.system.service.IUserService;
 import com.newland.blog.entities.Article;
+import com.newland.blog.entities.Replay;
 import com.newland.blog.entities.User;
 import com.newland.blog.util.aliyun.AliyunUtil;
 import com.newland.blog.util.base.Result;
@@ -36,7 +40,7 @@ public class UserController {
      * 7. 根据ID，查询用户的详细信息
      * 8. 返回所有用户的列表
      * 9. 修改用户信息
-     * 10. 根据用户ID查询用户所有评论的历史记录(需远程调用)
+     * 10. 根据用户ID查询用户所有回复的历史记录(需远程调用)
      * 11. 根据用户ID查询用户发表的所有文章(需远程调用)
      * 12. 根据用户ID查询用户提出的所有问题(需远程调用)
      * 13. 统计用户近6个月发表的文章数(需远程调用)
@@ -137,19 +141,39 @@ public class UserController {
     public Result update(@RequestBody User user) {
         return Result.ok(userService.updateById(user));
     }
-    //10. 统计用户近6个月发表的文章数(需远程调用)
+    //10. 根据用户ID查询公开或未公开的文章历史记录接口
+    @ApiOperation("根据用户ID查询公开或未公开的文章历史记录接口")
+    @PostMapping("/article") // /article/user
+    public Result findArticleListByUserId(@RequestBody ArticleUserREQ req) {
+        return userService.findArticleListByUserId(req);
+    }
+    //11. 根据用户ID查询其回复的历史记录接口
+    @ApiOperation("根据用户ID查询其回复的历史记录接口")
+    @PostMapping("/replay") // /article/user
+    public Result findReplayListByUserId(@RequestBody ReplayUserREQ req) {
+        return userService.findReplayListByUserId(req);
+    }
+    //12.根据用户ID查询其发布的问题的历史记录接口
+    @ApiOperation("根据用户ID查询其发布的问题的历史记录接口")
+    @PostMapping("/question") // /article/user
+    public Result findQuestionListByUserId(@RequestBody QuestionUserREQ req) {
+        return userService.findQuestionListByUserId(req);
+    }
+    //13. 根据用户ID统计该用户近6个月公开或未公开的文章数
     @ApiImplicitParam(name = "id", value = "用户ID", required = true)
-    @ApiOperation("根据用户ID统计该用户近6个月发布的文章数")
+    @ApiOperation("根据用户ID统计该用户近6个月公开或未公开的文章数")
     @GetMapping("/article/{id}")
     public Result userMonthArticleTotal(@PathVariable("id") String id){
         return userService.userMonthArticleTotal(id);
     }
+    //14.根据用户ID统计该用户近6个月发布的问题数
     @ApiImplicitParam(name = "id", value = "用户ID", required = true)
     @ApiOperation("根据用户ID统计该用户近6个月发布的问题数")
     @GetMapping("/question/{id}")
     public Result userMonthQuestionTotal(@PathVariable("id") String id){
         return userService.userMonthQuestionTotal(id);
     }
+    //15. 根据用户ID统计该用户近6个月发布的回复数
     @ApiImplicitParam(name = "id", value = "用户ID", required = true)
     @ApiOperation("根据用户ID统计该用户近6个月发布的回复数")
     @GetMapping("/replay/{id}")

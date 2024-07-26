@@ -1,6 +1,9 @@
 package com.example.newblognewsystem.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.newblognewsystem.system.req.ArticleUserREQ;
+import com.example.newblognewsystem.system.req.QuestionUserREQ;
+import com.example.newblognewsystem.system.req.ReplayUserREQ;
 import com.newland.blog.entities.Menu;
 import com.newland.blog.entities.Role;
 import com.newland.blog.entities.User;
@@ -77,6 +80,9 @@ public interface IUserService extends IService<User> {
     Result userMonthReplayTotal(@PathVariable("id") String id);
 
 
+    Result findArticleListByUserId(ArticleUserREQ req);
 
+    Result findReplayListByUserId(ReplayUserREQ req);
 
+    Result findQuestionListByUserId(QuestionUserREQ req);
 }

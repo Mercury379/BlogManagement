@@ -3,6 +3,7 @@ package com.newland.blog.question.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.newland.blog.entities.Replay;
 import com.newland.blog.question.req.QuestionReplayREQ;
+import com.newland.blog.question.req.ReplayUserREQ;
 import com.newland.blog.util.base.Result;
 
 /**
@@ -36,4 +37,5 @@ public interface IReplayService extends IService<Replay> {
     Result getReplaysByQuestionIdTotal(String questionId);
     public Result getUserMonthReplayTotal(String userId);
     public Result getReplay(String id);
+    public Result getUserReplay(ReplayUserREQ req);
 }
